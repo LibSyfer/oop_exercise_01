@@ -5,7 +5,7 @@ struct BigString{
     BigString();
     BigString(unsigned long long n1, unsigned long long n2);
     ~BigString();
-    
+
     void set_lString(unsigned long long n);
     void set_rString(unsigned long long n);
     unsigned long long get_lString() const;

@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
             str1.print_bits();
             str2.print_bits();
             std::cout << "num_of_units :" << str1.num_of_units() <<std::endl;
-            std::cout << "num_of_units :" << str1.num_of_units() <<std::endl;
+            std::cout << "num_of_units :" << str2.num_of_units() <<std::endl;
             break;
         case 8:
             str1.print_bits();
