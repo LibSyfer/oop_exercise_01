@@ -50,12 +50,14 @@ int main(int argc, char* argv[]) {
     std::cin >> key;
     switch(key) {
         case 1:
+            std::cout << "shift: ";
             std::cin >> shift;
             str1.print_bits();
             str1.shiftLeft(shift);
             str1.print_bits();
             break;
         case 2:
+            std::cout << "shift: ";
             std::cin >> shift;
             str1.print_bits();
             str1.shiftRight(shift);
@@ -78,7 +80,6 @@ int main(int argc, char* argv[]) {
             break;
         case 6:
             str1.print_bits();
-            str2.print_bits();
             str1.NOT().print_bits();
             break;
         case 7:
@@ -92,6 +93,7 @@ int main(int argc, char* argv[]) {
             str2.print_bits();
             std::cout << "comparison \n";
             str1.comparison(str2)->print_bits();
+            break;
         case 9:
             str1.print_bits();
             str2.print_bits();
@@ -101,6 +103,7 @@ int main(int argc, char* argv[]) {
             else {
                 std::cout << "No\n";
             }
+            break;
         default:
             std::cout << "error" << std::endl;
             break;
@@ -119,8 +122,8 @@ void separator() {
 void meny() {
     std::cout << "1)shiftLeft" << std::endl;
     std::cout << "2)shiftLeft" << std::endl;
-    std::cout << "3)OR" << std::endl;
-    std::cout << "4)AND" << std::endl;
+    std::cout << "3)AND" << std::endl;
+    std::cout << "4)OR" << std::endl;
     std::cout << "5)XOR" << std::endl;
     std::cout << "6)NOT" << std::endl;
     std::cout << "7)num_of_units" << std::endl;
