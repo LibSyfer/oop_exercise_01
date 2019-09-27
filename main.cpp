@@ -2,109 +2,143 @@
 #include <fstream>
 #include "bigString.hpp"
 
-void separator()
-{
+void separator();
+void meny();
+unsigned long long get_num_in_file(std::ifstream& fin);
+
+int main(int argc, char* argv[]) {
+    int key;
+    int shift;
+    unsigned long long n1;
+    unsigned long long n2;
+    BigString str1;
+    BigString str2;
+
+    if (argc > 1) {
+        std::ifstream fin(argv[1], std::ios_base::in);
+        if (!fin.is_open()) {
+            std::cout << "Нельзя отрыть файл!\n";
+            return 2;
+        }
+
+        n1 = get_num_in_file(fin);
+        n2 = get_num_in_file(fin);
+        str1.set_lString(n1);
+        str1.set_rString(n2);
+
+        n1 = get_num_in_file(fin);
+        n2 = get_num_in_file(fin);
+        str2.set_lString(n1);
+        str2.set_rString(n2);
+
+        fin.close();
+    }
+    else {
+        for(int i = 0; i < 2; ++i) {
+            std::cin >> n1 >> n2;
+            str1.set_lString(n1);
+            str1.set_rString(n2);
+
+            std::cin >> n1 >> n2;
+            str2.set_lString(n1);
+            str2.set_rString(n2);
+        }
+    }
+
+    meny();
+
+    std::cin >> key;
+    switch(key) {
+        case 1:
+            std::cin >> shift;
+            str1.print_bits();
+            str1.shiftLeft(shift);
+            str1.print_bits();
+            break;
+        case 2:
+            std::cin >> shift;
+            str1.print_bits();
+            str1.shiftRight(shift);
+            str1.print_bits();
+            break;
+        case 3:
+            str1.print_bits();
+            str2.print_bits();
+            str1.AND(str2).print_bits();
+            break;
+        case 4:
+            str1.print_bits();
+            str2.print_bits();
+            str1.OR(str2).print_bits();
+            break;
+        case 5:
+            str1.print_bits();
+            str2.print_bits();
+            str1.XOR(str2).print_bits();
+            break;
+        case 6:
+            str1.print_bits();
+            str2.print_bits();
+            str1.NOT().print_bits();
+            break;
+        case 7:
+            str1.print_bits();
+            str2.print_bits();
+            std::cout << "num_of_units :" << str1.num_of_units() <<std::endl;
+            std::cout << "num_of_units :" << str1.num_of_units() <<std::endl;
+            break;
+        case 8:
+            str1.print_bits();
+            str2.print_bits();
+            std::cout << "comparison \n";
+            str1.comparison(str2)->print_bits();
+        case 9:
+            str1.print_bits();
+            str2.print_bits();
+            if (str1.is_include(str2)) {
+                std::cout << "Yes\n";
+            }
+            else {
+                std::cout << "No\n";
+            }
+        default:
+            std::cout << "error" << std::endl;
+            break;
+    }
+    return 0;
+}
+
+void separator() {
     std::cout <<"==============";
-    for(int i = 0; i < 128; ++i)
-    {
+    for(int i = 0; i < 128; ++i) {
         std::cout << "=";
     }
     std::cout << std::endl;
 }
 
-unsigned long long get_numfile(std::ifstream& fin)
-{
+void meny() {
+    std::cout << "1)shiftLeft" << std::endl;
+    std::cout << "2)shiftLeft" << std::endl;
+    std::cout << "3)OR" << std::endl;
+    std::cout << "4)AND" << std::endl;
+    std::cout << "5)XOR" << std::endl;
+    std::cout << "6)NOT" << std::endl;
+    std::cout << "7)num_of_units" << std::endl;
+    std::cout << "8)comparison" << std::endl;
+    std::cout << "9)is_include" << std::endl;
+
+}
+
+unsigned long long get_num_in_file(std::ifstream& fin) {
     unsigned long long num = 0;
     char ch;
-    while(fin.get(ch))
-    {
-        if (ch != ' ' && ch != '\n' && ch != EOF)
-        {
+    while(fin.get(ch)) {
+        if (ch != ' ' && ch != '\n' && ch != EOF) {
             num = num * 10 + (ch - '0');
         }
-        else
-        {
+        else {
             break;
         }
     }
     return num;
-}
-
-int main(int argc, char* argv[])
-{
-    unsigned long long n1;
-    unsigned long long n2;
-
-    if (argc < 2)
-    {
-        return 1;
-    }
-
-    std::ifstream fin(argv[1], std::ios_base::in);
-
-    if (!fin.is_open())
-    {
-        std::cout << "Нельзя отрыть файл!\n";
-        return 2;
-    }
-
-    n1 = get_numfile(fin);
-    n2 = get_numfile(fin);
-    BigString str1(n1, n2);
-
-    n1 = get_numfile(fin);
-    n2 = get_numfile(fin);
-    BigString str2(n1, n2);
-
-    separator();
-    std::cout << "str1          ";
-    str1.print_bits();
-    std::cout << "str2          ";
-    str2.print_bits();
-    std::cout << "str1 and str2 ";
-    str1.BS_and(str2).print_bits();
-    separator();
-    std::cout << "str1          ";
-    str1.print_bits();
-    std::cout << "str2          ";
-    str2.print_bits();
-    std::cout << "str1 or str2  ";
-    str1.BS_or(str2).print_bits();
-    separator();
-    std::cout << "str1          ";
-    str1.print_bits();
-    std::cout << "str2          ";
-    str2.print_bits();
-    std::cout << "str1 xor str2 ";
-    str1.BS_xor(str2).print_bits();
-    separator();
-    std::cout << "str1          ";
-    str1.print_bits();
-    std::cout << "not str1      ";
-    str1.BS_not().print_bits();
-    separator();
-    std::cout << "str2          ";
-    str2.print_bits();
-    std::cout << "not str2      ";
-    str2.BS_not().print_bits();
-    separator();
-    std::cout << "Num of units in str1: " << str1.numof_units() << std::endl;
-    std::cout << "Num of units in str2: " << str2.numof_units() << std::endl;
-    separator();
-    BigString* p = str1.comparison(str2);
-    std::cout << "Max in str1 and str2:\n";
-    p->print_bits();
-    separator();
-    std::cout << "str1 >> 3\n";
-    str1.shiftRight(3);
-    str1.print_bits();
-    separator();
-    std::cout << "str1 << 5\n";
-    str1.shiftLeft(5);
-    str1.print_bits();
-    separator();
-
-
-    fin.close();
-    return 0;
 }
