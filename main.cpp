@@ -94,6 +94,16 @@ int main(int argc, char* argv[])
     BigString* p = str1.comparison(str2);
     std::cout << "Max in str1 and str2:\n";
     p->print_bits();
+    separator();
+    std::cout << "str1 >> 3\n";
+    str1.shiftRight(3);
+    str1.print_bits();
+    separator();
+    std::cout << "str1 << 5\n";
+    str1.shiftLeft(5);
+    str1.print_bits();
+    separator();
+
 
     fin.close();
     return 0;
