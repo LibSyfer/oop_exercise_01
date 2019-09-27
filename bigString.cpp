@@ -7,19 +7,19 @@ BigString::BigString(unsigned long long n1, unsigned long long n2):lString(n1), 
 
 BigString::~BigString(){}
 
-void BigString::set_lString(unsigned long long n) {
+void BigString::set_lstring(unsigned long long n) {
     this->lString = n;
 }
 
-void BigString::set_rString(unsigned long long n) {
+void BigString::set_rstring(unsigned long long n) {
     this->rString = n;
 }
 
-unsigned long long BigString::get_lString() const {
+unsigned long long BigString::get_lstring() const {
     return this->lString;
 }
 
-unsigned long long BigString::get_rString() const {
+unsigned long long BigString::get_rstring() const {
     return this->rString;
 }
 
@@ -48,7 +48,7 @@ void BigString::print_bits() {
     std::cout << "\n";
 }
 
-void BigString::shiftLeft(int shift) {
+void BigString::shift_left(int shift) {
     unsigned long long Mask_firstBit = 0x8000000000000000; // первый бит 1 остальные 0
     int bit;
     for(int i = 0; i < shift; ++i) {
@@ -64,7 +64,7 @@ void BigString::shiftLeft(int shift) {
     }
 }
 
-void BigString::shiftRight(int shift) {
+void BigString::shift_right(int shift) {
     unsigned long long Mask_lastBit = 1; // последний бит 1 остальные 0
     int bit;
     for(int i = 0; i < shift; ++i) {
@@ -82,81 +82,32 @@ void BigString::shiftRight(int shift) {
     }
 }
 
-BigString BigString::AND(const BigString& s) {
+BigString BigString::bs_and(const BigString& s) {
     BigString res;
-    unsigned long long mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if ((this->lString & s.get_lString()) & mask) {
-            res.lString = res.lString | mask;
-        }
-        mask = mask >> 1;
-    }
-    mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if ((this->rString & s.get_rString()) & mask) {
-            res.rString = res.rString | mask;
-        }
-        mask = mask >> 1;
-    }
+    res.set_lstring(this->lString & s.get_lstring());
+    res.set_lstring(this->rString & s.get_rstring());
     return res;
 }
 
-BigString BigString::OR(const BigString& s) {
+BigString BigString::bs_or(const BigString& s) {
     BigString res;
-    unsigned long long mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if ((this->lString | s.get_lString()) & mask) {
-            res.lString = res.lString | mask;
-        }
-        mask = mask >> 1;
-    }
-    mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if ((this->rString | s.get_rString()) & mask) {
-            res.rString = res.rString | mask;
-        }
-        mask = mask >> 1;
-    }
+    res.set_lstring(this->lString | s.get_lstring());
+    res.set_rstring(this->rString | s.get_rstring());
+    return res;
+}
+///
+
+BigString BigString::bs_xor(const BigString& s) {
+    BigString res;
+    res.set_lstring(this->lString ^ s.get_lstring());
+    res.set_rstring(this->rString ^ s.get_rstring());
     return res;
 }
 
-BigString BigString::XOR(const BigString& s) {
+BigString BigString::bs_not() {
     BigString res;
-    unsigned long long mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if ((!(this->lString & mask) && (s.get_lString() & mask)) ||
-              ((this->lString & mask) && !(s.get_lString() & mask))) {
-            res.lString = res.lString | mask;
-        }
-        mask = mask >> 1;
-    }
-    mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if ((!(this->rString & mask) && (s.get_rString() & mask)) ||
-              ((this->rString & mask) && !(s.get_rString() & mask))) {
-            res.rString = res.rString | mask;
-        }
-        mask = mask >> 1;
-    }
-    return res;
-}
-
-BigString BigString::NOT() {
-    BigString res;
-    unsigned long long mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if (!(this->lString & mask)) {
-            res.lString = res.lString | mask;
-        }
-        mask = mask >> 1;
-    }
-    mask = 0x8000000000000000;
-    for(int i = 0; i < 64; ++i) {
-        if (!(this->rString & mask)) {
-            res.rString = res.rString | mask;
-        }
-        mask = mask >> 1;
-    }
+    res.set_lstring(~(this->lString));
+    res.set_rstring(~(this->rString));
     return res;
 }
 
@@ -190,8 +141,8 @@ BigString* BigString::comparison(BigString& s) {
     }
 }
 
-int BigString::is_include(const BigString& s) {
-    if(((this->lString & s.get_lString()) == this->get_lString()) || ((this->rString & s.get_rString()) == this->get_rString())) {
+int BigString::is_include(const BigString& s) const {
+    if(((this->lString & s.get_lstring()) == this->get_lstring()) || ((this->rString & s.get_rstring()) == this->get_rstring())) {
         return 1;
     }
     else {

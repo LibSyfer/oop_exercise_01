@@ -23,26 +23,24 @@ int main(int argc, char* argv[]) {
 
         n1 = get_num_in_file(fin);
         n2 = get_num_in_file(fin);
-        str1.set_lString(n1);
-        str1.set_rString(n2);
+        str1.set_lstring(n1);
+        str1.set_rstring(n2);
 
         n1 = get_num_in_file(fin);
         n2 = get_num_in_file(fin);
-        str2.set_lString(n1);
-        str2.set_rString(n2);
+        str2.set_lstring(n1);
+        str2.set_rstring(n2);
 
         fin.close();
     }
     else {
-        for(int i = 0; i < 2; ++i) {
             std::cin >> n1 >> n2;
-            str1.set_lString(n1);
-            str1.set_rString(n2);
+            str1.set_lstring(n1);
+            str1.set_rstring(n2);
 
             std::cin >> n1 >> n2;
-            str2.set_lString(n1);
-            str2.set_rString(n2);
-        }
+            str2.set_lstring(n1);
+            str2.set_rstring(n2);
     }
 
     meny();
@@ -53,34 +51,34 @@ int main(int argc, char* argv[]) {
             std::cout << "shift: ";
             std::cin >> shift;
             str1.print_bits();
-            str1.shiftLeft(shift);
+            str1.shift_left(shift);
             str1.print_bits();
             break;
         case 2:
             std::cout << "shift: ";
             std::cin >> shift;
             str1.print_bits();
-            str1.shiftRight(shift);
+            str1.shift_right(shift);
             str1.print_bits();
             break;
         case 3:
             str1.print_bits();
             str2.print_bits();
-            str1.AND(str2).print_bits();
+            str1.bs_and(str2).print_bits();
             break;
         case 4:
             str1.print_bits();
             str2.print_bits();
-            str1.OR(str2).print_bits();
+            str1.bs_or(str2).print_bits();
             break;
         case 5:
             str1.print_bits();
             str2.print_bits();
-            str1.XOR(str2).print_bits();
+            str1.bs_xor(str2).print_bits();
             break;
         case 6:
             str1.print_bits();
-            str1.NOT().print_bits();
+            str1.bs_not().print_bits();
             break;
         case 7:
             str1.print_bits();

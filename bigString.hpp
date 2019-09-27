@@ -6,24 +6,24 @@ struct BigString{
     BigString(unsigned long long n1, unsigned long long n2);
     ~BigString();
 
-    void set_lString(unsigned long long n);
-    void set_rString(unsigned long long n);
-    unsigned long long get_lString() const;
-    unsigned long long get_rString() const;
+    void set_lstring(unsigned long long n);
+    void set_rstring(unsigned long long n);
+    unsigned long long get_lstring() const;
+    unsigned long long get_rstring() const;
 
     void print_bits();
 
-    void shiftLeft(int shift);
-    void shiftRight(int shift);
+    void shift_left(int shift);
+    void shift_right(int shift);
 
-    BigString AND(const BigString& s);
-    BigString OR(const BigString& s);
-    BigString XOR(const BigString& s);
-    BigString NOT();
+    BigString bs_and(const BigString& s);
+    BigString bs_or(const BigString& s);
+    BigString bs_xor(const BigString& s);
+    BigString bs_not();
 
     int num_of_units() const;
     BigString* comparison(BigString& s);
-    int is_include(const BigString& s);
+    int is_include(const BigString& s) const;
 
 private:
     unsigned long long lString;
